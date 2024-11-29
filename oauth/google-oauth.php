@@ -1,13 +1,18 @@
 <?php
 
+require_once '../vendor/autoload.php';
+
 // faccio partire la sessione
 session_start();
 
-// aggiorno le variabili
-$google_oauth_client_id = "YOUR_CLIENT_ID"; 
-$google_oauth_client_secret = 'YOUR_CLIENT_SECRET';
-$google_oauth_redirect_uri = 'http://localhost/login/oauth/google-oauth.php';
-$google_oauth_version = 'v3';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$google_oauth_client_id = $_ENV['GOOGLE_OAUTH_CLIENT_ID'];
+$google_oauth_client_secret = $_ENV['GOOGLE_OAUTH_CLIENT_SECRET'];
+$google_oauth_redirect_uri = $_ENV['GOOGLE_OAUTH_REDIRECT_URI'];
+$google_oauth_version = $_ENV['GOOGLE_OAUTH_VERSION'];
+
 
 // If the captured code param exists and is valid
 if (isset($_GET['code']) && !empty($_GET['code'])) {
