@@ -11,6 +11,7 @@ $google_oauth_version = 'v3';
 
 // If the captured code param exists and is valid
 if (isset($_GET['code']) && !empty($_GET['code'])) {
+    
     // Execute cURL request to retrieve the access token
     $params = [
         'code' => $_GET['code'],
@@ -27,9 +28,10 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
     $response = curl_exec($ch);
     curl_close($ch);
     $response = json_decode($response, true);
-    
+
     // Make sure access token is valid
     if (isset($response['access_token']) && !empty($response['access_token'])) {
+        
         // Execute cURL request to retrieve the user info associated with the Google account
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.googleapis.com/oauth2/' . $google_oauth_version . '/userinfo');
@@ -38,12 +40,19 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         $response = curl_exec($ch);
         curl_close($ch);
         $profile = json_decode($response, true);
+        
         // Make sure the profile data exists
         if (isset($profile['email'])) {
             $google_name_parts = [];
             $google_name_parts[] = isset($profile['given_name']) ? preg_replace('/[^a-zA-Z0-9]/s', '', $profile['given_name']) : '';
             $google_name_parts[] = isset($profile['family_name']) ? preg_replace('/[^a-zA-Z0-9]/s', '', $profile['family_name']) : '';
-            // Code goes here...
+            
+            // Authenticate the user
+            session_regenerate_id();
+            $_SESSION['google_loggedin'] = TRUE;
+            $_SESSION['google_email'] = $profile['email'];
+            $_SESSION['google_name'] = implode(' ', $google_name_parts);
+            $_SESSION['google_picture'] = isset($profile['picture']) ? $profile['picture'] : '';
         } else {
             exit('Could not retrieve profile information! Please try again later!');
         }
@@ -51,6 +60,7 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
         exit('Invalid access token! Please try again later!');
     }
 } else {
+    
     // Define params and redirect to Google Authentication page
     $params = [
         'response_type' => 'code',
