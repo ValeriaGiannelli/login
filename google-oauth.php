@@ -1,6 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 // faccio partire la sessione
 session_start();
