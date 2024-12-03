@@ -48,7 +48,7 @@ Questo progetto consente agli utenti di effettuare l'autenticazione tramite Goog
 
 ## Configurazione OAuth su Google Cloud Console
 
-1. Vai su Google Cloud Console.
+1. Vai su [Google Cloud Console](https://console.cloud.google.com/).
 2. Crea un nuovo progetto o seleziona uno esistente.
 3. Abilita l'API di Google OAuth.
 4. Configura le credenziali per ottenere il Client ID e il Client Secret.
