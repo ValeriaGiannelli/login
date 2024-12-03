@@ -32,11 +32,11 @@ Questo progetto consente agli utenti di effettuare l'autenticazione tramite Goog
    ```bash
    composer install
 3. Crea un file .env nella directory principale del progetto e aggiungi le credenziali OAuth::
-  ```bash
-  GOOGLE_OAUTH_CLIENT_ID=your_google_client_id
-  GOOGLE_OAUTH_CLIENT_SECRET=your_google_client_secret
-  GOOGLE_OAUTH_REDIRECT_URI=your_redirect_uri
-  GOOGLE_OAUTH_VERSION=v2
+   ```bash
+   GOOGLE_OAUTH_CLIENT_ID=your_google_client_id
+   GOOGLE_OAUTH_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_OAUTH_REDIRECT_URI=your_redirect_uri
+   GOOGLE_OAUTH_VERSION=v2
 
 4. Avvia il server di sviluppo:
    ```bash
